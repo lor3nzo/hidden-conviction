@@ -1,0 +1,46 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hidden-conviction-ingest",
+  "main": "src/main.py",
+  "compatibility_date": "2026-09-22",
+  "compatibility_flags": [
+    "python_workers"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "hidden-conviction-db",
+      "database_id": "9ab85c6a-0366-4454-bf58-3ed17a512ebd"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "FILING_QUEUE",
+        "queue": "hidden-conviction-filings"
+      },
+      {
+        "binding": "THIRTEEN_F_QUEUE",
+        "queue": "hidden-conviction-13f"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "hidden-conviction-filings",
+        "max_batch_size": 1,
+        "max_batch_timeout": 2,
+        "max_retries": 5,
+        "max_concurrency": 1,
+        "retry_delay": 600
+      }
+    ]
+  },
+  "triggers": {
+    "crons": [
+      "*/5 * * * *"
+    ]
+  },
+  "vars": {
+    "ENVIRONMENT": "production"
+  }
+}

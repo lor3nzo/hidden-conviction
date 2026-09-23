@@ -1,0 +1,17 @@
+{
+  "name": "hidden-conviction-frontend",
+  "private": true,
+  "version": "0.14.0",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests_js/frontend.test.mjs",
+    "lint": "eslint public/app.js src/public_worker.js tests_js/frontend.test.mjs",
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed"
+  },
+  "devDependencies": {
+    "eslint": "10.11.0",
+    "@playwright/test": "1.63.0",
+    "@axe-core/playwright": "4.13.0"
+  }
+}

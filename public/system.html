@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Live operational health for Hidden Conviction SEC discovery, processing, scoring, and publication pipelines.">
+  <title>System Console · Hidden Conviction</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-page="system">
+  <main>
+    <nav aria-label="Primary navigation" class="nav">
+<a class="brand" href="/">HIDDEN CONVICTION</a>
+<div class="nav-links">
+<a href="/">Signals</a>
+<a href="/system">System</a>
+<a href="/methodology">Methodology</a>
+</div>
+</nav>
+    <div class="view" id="view-system">
+<a class="back-link" href="/">← Back to signals</a>
+<article class="system-console">
+<div class="eyebrow">SYSTEM CONSOLE</div>
+<h1 class="page-title">Pipeline health.</h1>
+<p class="lede">A live operational view from SEC discovery through public API publication.</p>
+<div class="system-actions"><button id="system-refresh" type="button">Refresh status</button><span id="system-refresh-note">Live status</span></div>
+<div class="web-checks" id="system-webchecks" aria-live="polite">Checking robots.txt and sitemap.xml…</div>
+<!-- SSR_SYSTEM --><div aria-live="polite" class="system-overall" id="system-overall">Loading system state…</div>
+<div aria-live="polite" class="system-stages" id="system-stages"><div class="skeleton-card"></div></div><!-- /SSR_SYSTEM -->
+<details class="diagnostic-details">
+<summary>Operator diagnostics</summary>
+<p>Detailed errors and replay actions require the admin key and are never exposed by the public health endpoint.</p>
+<label class="admin-key-label" for="admin-key">Admin key</label>
+<div class="admin-key-row"><input autocomplete="off" id="admin-key" placeholder="ADMIN_SECRET" type="password"/><button id="admin-load" type="button">Load diagnostics</button></div>
+<div class="admin-diagnostics" id="admin-diagnostics"></div>
+</details>
+</article>
+</div>
+    <footer class="site-footer">
+      <div class="footer-meta"><span id="footer-version">Hidden Conviction v0.14.0</span> · Public SEC filing data · <a href="/methodology">Methodology</a></div>
+      <div id="footer-freshness" class="footer-freshness"></div>
+      <section class="site-disclaimer" aria-labelledby="disclaimer-heading">
+        <h2 id="disclaimer-heading">Disclaimer</h2>
+        <p>The information provided on this website is for informational and educational purposes only and does not constitute financial, investment, legal, tax, or accounting advice. Nothing on this website should be interpreted as a recommendation, solicitation, or offer to buy or sell any security or financial instrument.</p>
+        <p>Any scores, rankings, signals, analyses, or other information presented are based on publicly available data and may contain errors, omissions, or delays. Past performance and historical patterns are not guarantees of future results.</p>
+        <p>Investing involves risk, including the possible loss of principal. You should conduct your own research and consult qualified financial, legal, or tax professionals before making investment decisions.</p>
+      </section>
+    </footer>
+  </main>
+  <script src="/app.js" defer></script>
+</body>
+</html>

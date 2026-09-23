@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Hidden Conviction interprets insider, beneficial ownership, institutional, and corporate-event SEC filing signals.">
+  <title>Methodology · Hidden Conviction</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-page="methodology">
+  <main>
+    <nav aria-label="Primary navigation" class="nav">
+<a class="brand" href="/">HIDDEN CONVICTION</a>
+<div class="nav-links">
+<a href="/">Signals</a>
+<a href="/system">System</a>
+<a href="/methodology">Methodology</a>
+</div>
+</nav>
+    <div class="view" id="view-methodology">
+<a class="back-link" href="/">← Back to signals</a>
+<article class="methodology">
+<div class="eyebrow">METHODOLOGY</div>
+<h1 class="page-title">What Hidden Conviction measures.</h1>
+<p class="lede">Hidden Conviction is a rules-based research signal built from public SEC filings. It looks for observable capital behavior and corporate events that may indicate unusually strong conviction.</p>
+<section>
+<h2>Signal families</h2>
+<div class="method-grid">
+<div class="method-card"><strong>Insider Buying</strong><p>Reported insider purchase activity, with context such as role, transaction size, and change in ownership.</p></div>
+<div class="method-card"><strong>Insider Clusters</strong><p>Multiple insiders reporting purchase activity within the active scoring window.</p></div>
+<div class="method-card"><strong>Beneficial Ownership</strong><p>Schedule 13D and 13G activity that reflects significant ownership or accumulation.</p></div>
+<div class="method-card"><strong>Institutional Confirmation</strong><p>Quarterly 13F holdings can provide delayed confirmation of institutional accumulation. Because 13F data is reported after quarter end, it is treated as confirmation rather than a fresh standalone signal.</p></div>
+<div class="method-card"><strong>Corporate Events</strong><p>Selected 8-K events are classified for their potential positive or negative contribution to conviction.</p></div>
+<div class="method-card"><strong>Signal Convergence</strong><p>Independent signal families becoming active together can strengthen the overall conviction signal.</p></div>
+</div>
+</section>
+<section>
+<h2>HCS classifications</h2>
+<div class="scale-grid wide">
+<div><strong>0–59</strong><span>No Signal</span></div>
+<div><strong>60–69</strong><span>Emerging</span></div>
+<div><strong>70–79</strong><span>Watch</span></div>
+<div><strong>80–89</strong><span>High Conviction</span></div>
+<div><strong>90–100</strong><span>Exceptional Conviction</span></div>
+</div>
+</section>
+<section>
+<h2>What is intentionally not disclosed</h2>
+<p>Hidden Conviction does not publish its proprietary component weights, thresholds, penalties, or scoring formula. The public product explains which signal families are active and links to the underlying SEC evidence so the source data can be independently reviewed.</p>
+</section>
+<section>
+<h2>Freshness policy</h2>
+<p>Public rankings only use a score materialized for the current UTC date. Positive scores are re-evaluated daily so rolling 30-day and 60-day evidence windows expire automatically. Company pages can show older history for research, but stale scores are explicitly labeled rather than treated as current.</p>
+</section>
+<section>
+<h2>Important limitations</h2>
+<p>SEC filings can be delayed, amended, incomplete, or difficult to compare across periods. Institutional holdings are especially stale by design. HCS is an informational research signal, not a prediction, valuation, recommendation, or personalized investment advice.</p>
+</section>
+</article>
+</div>
+    <footer class="site-footer">
+      <div class="footer-meta"><span id="footer-version">Hidden Conviction v0.14.0</span> · Public SEC filing data · <a href="/methodology">Methodology</a></div>
+      <div id="footer-freshness" class="footer-freshness"></div>
+      <section class="site-disclaimer" aria-labelledby="disclaimer-heading">
+        <h2 id="disclaimer-heading">Disclaimer</h2>
+        <p>The information provided on this website is for informational and educational purposes only and does not constitute financial, investment, legal, tax, or accounting advice. Nothing on this website should be interpreted as a recommendation, solicitation, or offer to buy or sell any security or financial instrument.</p>
+        <p>Any scores, rankings, signals, analyses, or other information presented are based on publicly available data and may contain errors, omissions, or delays. Past performance and historical patterns are not guarantees of future results.</p>
+        <p>Investing involves risk, including the possible loss of principal. You should conduct your own research and consult qualified financial, legal, or tax professionals before making investment decisions.</p>
+      </section>
+    </footer>
+  </main>
+  <script src="/app.js" defer></script>
+</body>
+</html>

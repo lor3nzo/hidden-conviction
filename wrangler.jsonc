@@ -1,0 +1,27 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hidden-conviction",
+  "main": "src/public_worker.js",
+  "compatibility_date": "2026-09-22",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "hidden-conviction-db",
+      "database_id": "9ab85c6a-0366-4454-bf58-3ed17a512ebd"
+    }
+  ],
+  "services": [
+    {
+      "binding": "BACKEND",
+      "service": "hidden-conviction-ingest"
+    }
+  ],
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "vars": {
+    "ENVIRONMENT": "production"
+  }
+}

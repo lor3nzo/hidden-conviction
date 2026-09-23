@@ -1,0 +1,11 @@
+{
+  "include": [
+    "src/app_meta.py",
+    "src/public_api.py",
+    "src/sec/discovery.py"
+  ],
+  "typeCheckingMode": "basic",
+  "reportMissingImports": false,
+  "reportMissingTypeStubs": false,
+  "pythonVersion": "3.13"
+}

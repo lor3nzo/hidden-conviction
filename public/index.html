@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Filing-driven public-market conviction signals built from public SEC data.">
+  <title>Hidden Conviction</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body data-page="home">
+  <main>
+    <nav aria-label="Primary navigation" class="nav">
+<a class="brand" href="/">HIDDEN CONVICTION</a>
+<div class="nav-links">
+<a href="/">Signals</a>
+<a href="/system">System</a>
+<a href="/methodology">Methodology</a>
+</div>
+</nav>
+    <div class="view" id="view-home">
+<header class="hero">
+<div class="eyebrow">HIDDEN CONVICTION</div>
+<h1>Follow the capital.</h1>
+<p class="lede">A filing-driven signal engine that looks for meaningful insider, ownership, institutional, and corporate-event conviction in public SEC data.</p>
+<div class="freshness" id="home-freshness">Checking data freshness…</div>
+<a aria-live="polite" class="system-status" href="/system" id="system-status">Checking system status…</a>
+<div class="data-delay-badge" id="data-delay-badge" hidden>Data delayed</div>
+<div class="home-kpis" id="home-kpis"><!-- SSR_KPIS --><div class="home-kpi"><span>Highest current HCS</span><strong title="HCS means Hidden Conviction Score">—</strong></div><div class="home-kpi"><span>Published signals</span><strong>—</strong><small>Threshold HCS ≥ 80</small></div><!-- /SSR_KPIS --></div>
+<details class="pipeline-details">
+<summary>Pipeline freshness</summary>
+<div aria-label="Data pipeline freshness" class="pipeline-status" id="pipeline-status"></div>
+</details>
+<div class="research-search">
+<label for="company-search">Research a company</label>
+<div class="search-shell">
+<input aria-autocomplete="list" aria-controls="search-results" autocomplete="off" id="company-search" placeholder="Ticker, company, or CIK" spellcheck="false" type="search"/>
+<span class="search-hint">⌘ K</span>
+</div>
+<div class="search-results" hidden="" id="search-results" role="listbox"></div>
+</div>
+</header>
+<section aria-labelledby="signals-heading">
+<div aria-label="Signal filters" class="filter-bar">
+<label>Signal family
+            <select id="filter-family">
+<option value="">All families</option>
+<option value="insider">Insider</option>
+<option value="ownership">Ownership</option>
+<option value="institutional">Institutional</option>
+<option value="event">Corporate event</option>
+</select>
+</label>
+<label>Industry or SIC
+            <input autocomplete="off" id="filter-industry" placeholder="e.g. Software or 7372" type="search"/>
+</label>
+<label>Minimum HCS
+            <input id="filter-min-hcs" max="100" min="0" step="1" type="number" value="0"/>
+</label>
+<label>Sort
+            <select id="filter-sort">
+<option value="score">Highest HCS</option>
+<option value="change">Largest change</option>
+<option value="recent">Most recent</option>
+<option value="ticker">Ticker</option>
+</select>
+</label>
+<button id="filter-reset" type="button">Reset</button>
+</div>
+<div class="section-head">
+<div>
+<h2 id="signals-heading">High Conviction Signals</h2>
+<p class="section-copy">Only companies with a current Hidden Conviction Score of 80 or higher appear here.</p>
+</div>
+<span id="status">Loading...</span>
+</div>
+<div aria-live="polite" class="signals" id="signals"><!-- SSR_SIGNALS --><div class="skeleton-card"></div><div class="skeleton-card"></div><!-- /SSR_SIGNALS --></div>
+</section>
+<section aria-labelledby="candidates-heading" class="secondary-section">
+<div class="section-head">
+<div>
+<h2 id="candidates-heading">Current Activity</h2>
+<p class="section-copy">The highest current HCS scores below 80. These are current activity candidates, not High Conviction signals.</p>
+</div>
+<span id="candidate-status">Loading...</span>
+</div>
+<div aria-live="polite" class="signals candidates" id="candidates"><!-- SSR_CANDIDATES --><div class="skeleton-card"></div><div class="skeleton-card"></div><!-- /SSR_CANDIDATES --></div>
+</section>
+<section aria-labelledby="scale-heading" class="scale-panel">
+<div>
+<div class="eyebrow">HCS SCALE</div>
+<h2 id="scale-heading">How to read the score</h2>
+</div>
+<div class="scale-grid">
+<div><strong>0–59</strong><span>No Signal</span></div>
+<div><strong>60–69</strong><span>Emerging</span></div>
+<div><strong>70–79</strong><span>Watch</span></div>
+<div><strong>80–89</strong><span>High Conviction</span></div>
+<div><strong>90–100</strong><span>Exceptional</span></div>
+</div>
+</section>
+</div>
+    <footer class="site-footer">
+      <div class="footer-meta"><span id="footer-version">Hidden Conviction v0.14.0</span> · Public SEC filing data · <a href="/methodology">Methodology</a></div>
+      <div id="footer-freshness" class="footer-freshness"></div>
+      <section class="site-disclaimer" aria-labelledby="disclaimer-heading">
+        <h2 id="disclaimer-heading">Disclaimer</h2>
+        <p>The information provided on this website is for informational and educational purposes only and does not constitute financial, investment, legal, tax, or accounting advice. Nothing on this website should be interpreted as a recommendation, solicitation, or offer to buy or sell any security or financial instrument.</p>
+        <p>Any scores, rankings, signals, analyses, or other information presented are based on publicly available data and may contain errors, omissions, or delays. Past performance and historical patterns are not guarantees of future results.</p>
+        <p>Investing involves risk, including the possible loss of principal. You should conduct your own research and consult qualified financial, legal, or tax professionals before making investment decisions.</p>
+      </section>
+    </footer>
+  </main>
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hidden-conviction-13f",
+  "main": "src/worker_13f.py",
+  "compatibility_date": "2026-09-22",
+  "compatibility_flags": ["python_workers"],
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "hidden-conviction-db",
+      "database_id": "9ab85c6a-0366-4454-bf58-3ed17a512ebd"
+    }
+  ],
+
+  "queues": {
+    "producers": [
+      {
+        "binding": "THIRTEEN_F_QUEUE",
+        "queue": "hidden-conviction-13f"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "hidden-conviction-13f",
+        "max_batch_size": 1,
+        "max_batch_timeout": 5,
+        "max_retries": 5,
+        "max_concurrency": 1,
+        "retry_delay": 60
+      }
+    ]
+  },
+
+  "vars": {
+    "ENVIRONMENT": "production"
+  }
+}

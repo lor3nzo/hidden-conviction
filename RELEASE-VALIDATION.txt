@@ -1,0 +1,22 @@
+Hidden Conviction v0.14.0 validation
+====================================
+
+Python tests: 230 passed
+Frontend JavaScript tests: 18 passed
+Measured Python coverage: 35.06%
+Enforced Python coverage floor: 34%
+Adaptive ingestion controller coverage: 86%
+Python compileall: passed
+public/app.js syntax: passed
+src/public_worker.js syntax: passed
+Deployment/support shell syntax: passed
+wrangler/package JSON/JSONC parse: passed
+Bundle budgets: public worker ~31 KB; backend main ~174 KB; passed
+
+Not executable in isolated build sandbox because package registry access is unavailable:
+- Ruff
+- BasedPyright
+- ESLint dependency install
+- Playwright browser package install
+
+These checks remain configured in scripts/GitHub CI and run in the normal deployment environment.
