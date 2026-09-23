@@ -1,113 +1,147 @@
-# Hidden Conviction v0.14.0
+# Hidden Conviction
 
-Hidden Conviction is a filing-driven SEC research signal engine running on Cloudflare Workers, D1, Queues, and Cron.
+![Python](https://img.shields.io/badge/Python-3.13%2B-blue)
+![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Version](https://img.shields.io/badge/version-0.14.0-blue)
+![Status](https://img.shields.io/badge/status-active-green)
 
-v0.14.0 focuses on adaptive ingestion, backlog elimination, data integrity, and operational observability. The HCS scoring model is unchanged.
+**An open-source SEC filing intelligence engine for detecting meaningful changes in insider, beneficial-owner, institutional, and corporate activity.**
+
+Hidden Conviction ingests public SEC EDGAR filings, structures the underlying evidence, and converts it into auditable research signals.
+
+It currently analyzes:
+
+- Form 4 insider transactions
+- Schedule 13D / 13G beneficial ownership filings
+- Form 8-K corporate events
+- Form 13F institutional holdings
+
+Live application:
+
+**https://hidden-conviction.aotwone.workers.dev/**
+
+> Hidden Conviction is research software. It does not provide investment advice.
+
+---
+
+## Why Hidden Conviction Exists
+
+SEC filings contain valuable information, but the useful signals are scattered across different filing types, formats, reporting periods, and issuers.
+
+A single filing often means very little in isolation.
+
+The more interesting question is whether multiple independent sources of evidence are beginning to converge.
+
+Hidden Conviction is designed to:
+
+- collect relevant SEC filings automatically
+- normalize them into structured data
+- preserve the underlying evidence
+- identify changes that may deserve further research
+- combine independent signals without hiding their provenance
+- make the resulting analysis inspectable and reproducible
+
+The goal is not to predict stock prices.
+
+The goal is to make public SEC information easier to research systematically.
+
+---
+
+## Signal Families
+
+### Insider Activity
+
+Form 4 filings are analyzed for insider purchases and related activity.
+
+The system preserves filing-level evidence and distinguishes relevant transactions from activity that should not contribute to a conviction signal.
+
+### Beneficial Ownership
+
+Schedule 13D and 13G filings are used to identify significant ownership positions and changes in ownership.
+
+Amendments are treated as first-class filings rather than opaque duplicates.
+
+### Corporate Events
+
+Form 8-K filings are parsed for potentially material corporate events.
+
+The pipeline uses filing context and event-specific rules rather than relying solely on keyword matches.
+
+### Institutional Holdings
+
+13F filings are processed as delayed institutional confirmation data.
+
+Institutional observations are evaluated quarter-over-quarter and require predecessor data when appropriate.
+
+13F signals are deliberately constrained so that institutional holdings alone cannot create conviction.
+
+---
+
+## Hidden Conviction Score
+
+Hidden Conviction maintains a composite research score called the **Hidden Conviction Score (HCS)**.
+
+HCS combines independent evidence families such as:
+
+- insider activity
+- insider clustering
+- beneficial ownership
+- institutional confirmation
+- selected 8-K events
+- cross-signal convergence
+- data-quality and eligibility controls
+
+The score is designed to remain auditable.
+
+Supporting evidence is stored separately so that a score can be traced back to the filings and observations that produced it.
+
+The scoring model should be treated as a research framework, not as a forecast of future investment returns.
+
+---
 
 ## Architecture
 
-```text
-Browser
-  |
-  v
-hidden-conviction                 JavaScript public edge Worker
-  |  direct D1 reads for Home
-  |  Cloudflare Service Binding
-  v
-hidden-conviction-ingest          Python/FastAPI ingestion + scoring + APIs
-  |  adaptive controller + queue consumer
-  |  cron + SEC discovery + score recompute
-  |
-  +------------------------------> hidden-conviction-13f
-
-Shared D1: hidden-conviction-db
-```
-
-## v0.14 highlights
-
-- Adaptive filing ingestion with `protect`, `cautious`, `steady`, `accelerated`, and `catch_up` modes.
-- Effective filing concurrency scales from 1 to 5 using D1 cooperative leases under a fixed Cloudflare Queue ceiling.
-- SEC request pacing preserves rate-limit headroom while allowing backlog catch-up.
-- Hourly discovery/processing throughput, backlog velocity, clearance ETA, and a persisted 24-hour backlog trend.
-- Bounded automatic replay for transient filing failures plus operator replay-all.
-- Operational state vocabulary: Operational, Delayed, Degraded, Failed.
-- Cron receipt reconciliation and active alert thresholds.
-- Stale issuer-identity repair telemetry and adaptive refresh batching.
-- Deployment performance history and latest-versus-prior comparison.
-- Legacy compact filing dates normalized by migration 0033 and defensively normalized in the public layer.
-- `X-Hidden-Conviction-Build` remains on public and API responses.
-- Home KPI layout fixes the `HCS43` / `≥800` visual collision by separating labels, values, and threshold text.
-- `src/ingestion_control.py` and `src/system_health.py` reduce entrypoint concentration.
-
-## Disclaimer
-
-The centered informational and educational disclaimer remains on Home, Company, System, and Methodology pages.
-
-## Validation
+Hidden Conviction runs primarily on Cloudflare infrastructure.
 
 ```text
-230 Python tests passed
-18 frontend JavaScript tests passed
-~35% measured Python coverage
-34% enforced coverage floor
-86% coverage on the new ingestion controller
-Python compile passed
-JavaScript syntax passed
-Shell syntax passed
-JSON/JSONC validation passed
-Bundle budgets passed
-```
-
-Ruff, BasedPyright, ESLint, Playwright, and Axe remain configured for the normal Mac/GitHub workflow.
-
-## Deployment
-
-```bash
-./scripts/deploy.sh
-```
-
-The deployment workflow:
-
-1. stamps immutable build metadata
-2. runs tests, coverage, type/lint checks and frontend checks
-3. checks bundle budgets
-4. exports a timestamped D1 backup
-5. applies migration 0033
-6. deploys `hidden-conviction-ingest`
-7. validates ingestion secrets and backend health
-8. deploys `hidden-conviction-13f`
-9. deploys the lightweight public Worker last
-10. verifies version, schema, build headers, normalized freshness, adaptive telemetry and route SSR
-11. enforces TTFB budgets
-12. stores a deployment performance receipt for version-over-version comparison
-
-## Worker configuration
-
-- `wrangler.jsonc`: public JS edge Worker
-- `wrangler.ingest.jsonc`: Python ingestion/scoring Worker
-- `wrangler.13f.jsonc`: isolated Python 13F Worker
-
-## Key public API
-
-- `GET /api/version`
-- `GET /api/build`
-- `GET /api/health`
-- `GET /api/system`
-- `GET /api/freshness`
-- `GET /api/search?q={query}`
-- `GET /api/signals`
-- `GET /api/candidates`
-- `GET /api/company/{ticker-or-cik}`
-
-## Key admin API
-
-Requires `X-Admin-Key`.
-
-- `GET /api/admin/diagnostics`
-- `POST /api/admin/replay/filing/{queue_id}`
-- `POST /api/admin/replay/failures`
-- `POST /api/admin/replay/score/{cik}`
-- `POST /api/admin/deployment-metrics`
-- `GET /api/admin/query-plans`
-
-See `V0.14.0-SCOPE.md` and `RELEASE-NOTES-v0.14.0.md` for the complete implementation checklist.
+                         SEC EDGAR
+                            |
+                            v
+                +-------------------------+
+                | hidden-conviction-ingest|
+                | Python / FastAPI        |
+                |                         |
+                | SEC discovery           |
+                | Filing processing       |
+                | Scoring                 |
+                | Cron                    |
+                | Operational APIs        |
+                +------------+------------+
+                             |
+                    Cloudflare Queues
+                       /           \
+                      v             v
+          General filing queue     13F queue
+                                   |
+                                   v
+                         +--------------------+
+                         | hidden-conviction- |
+                         | 13f                |
+                         | Python Worker      |
+                         +---------+----------+
+                                   |
+                                   v
+                    +--------------------------+
+                    | Cloudflare D1            |
+                    | hidden-conviction-db     |
+                    +------------+-------------+
+                                 |
+                  +--------------+--------------+
+                  |                             |
+                  v                             v
+        hidden-conviction                Public APIs
+        JavaScript edge Worker
+                  |
+                  v
+              Browser
