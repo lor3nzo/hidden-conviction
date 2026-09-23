@@ -82,3 +82,9 @@ test-results/
 # Logs
 # ---------------------------------------------------------
 *.log
+
+# Public configuration template
+!.dev.vars.example
+
+# Locally generated admin credentials
+.admin-secret*

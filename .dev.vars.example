@@ -1,0 +1,6 @@
+# Required for SEC automated-access identification.
+# Use a real product/team name and monitored contact email.
+SEC_USER_AGENT="HiddenConviction/0.9.0 your-email@example.com"
+
+# Required only for /api/admin/* routes.
+ADMIN_SECRET="replace-with-a-long-random-secret"
