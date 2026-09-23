@@ -88,3 +88,9 @@ test-results/
 
 # Locally generated admin credentials
 .admin-secret*
+
+# Test fixtures
+!tests/fixtures/v011_seed.sql
+
+# Legacy explicit secret artifact name retained for regression test
+.admin-secret-v013
