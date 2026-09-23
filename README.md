@@ -4,7 +4,7 @@
 ![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Version](https://img.shields.io/badge/version-0.14.0-blue)
-![Status](https://img.shields.io/badge/status-active-green)
+[![CI](https://github.com/lor3nzo/hidden-conviction/actions/workflows/ci.yml/badge.svg)](https://github.com/lor3nzo/hidden-conviction/actions/workflows/ci.yml)
 
 **An open-source SEC filing intelligence engine for detecting meaningful changes in insider, beneficial-owner, institutional, and corporate activity.**
 
