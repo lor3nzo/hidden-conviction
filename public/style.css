@@ -294,3 +294,25 @@ footer a { color: inherit; }
 .system-overall.delayed { border-style:dashed; }
 .system-overall.failed { border-width:2px; }
 @media (max-width:760px) { .throughput-grid { grid-template-columns:1fr 1fr; } .home-kpi { min-width:0; } }
+
+/* Open-source repository and license footer */
+.footer-open-source {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #e1e1dc;
+  color: #777;
+  font-size: 12px;
+  text-align: center;
+}
+
+.footer-open-source a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: #bbb;
+  text-underline-offset: 3px;
+}
+
+.footer-open-source a:hover {
+  color: #111;
+  text-decoration-color: #111;
+}
